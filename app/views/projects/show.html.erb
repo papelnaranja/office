@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @project.name %>
+</p>
+
+
+<table class="">
+  <thead>
+    <tr>
+      <th>Nombre de usuario</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @assigments.each do |a| %>
+    <% if a.project_id == @project.id %>
+      <tr>
+        <td><%= a.user.name  %></td>
+      </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<%= form_with(model: [@project, @assignmet],  local: true) do |form| %>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= select_tag :user_id , options_from_collection_for_select(@users, 'id', 'name') %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit 'Añadir Usuario' %>
+  </div>
+<% end %>
+
+
+<%= link_to 'Edit', edit_project_path(@project) %> |
+<%= link_to 'Back', projects_path %>
